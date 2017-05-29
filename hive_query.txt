@@ -1,0 +1,18 @@
+1)Average age of male and female persons died in the titanic tragedy:
+
+SELECT SEX,ROUND(COUNT(*)/SUM(COUNT(*)) OVER (),2) AS AVG FROM Titanic WHERE SUR=1 GROUP BY sex ORDER BY sex;
+
+2)Number of people died and survived in each class:
+
+SELECT pclass,COUNT(sur) FROM Titanic WHERE sur==0 GROUP BY pclass; ->People survived in each class.
+
+SELECT pclass,COUNT(sur) FROM Titanic WHERE sur==1 GROUP BY pclass; ->People died in each class.
+
+CREATING TABLE:
+CREATE TABLE IF NOT EXISTS Titanic(id int,sur int,pclass int,name string,sex string,age int,sibsp int,parch int,ticket string,fare float,cabin string,embarked string) 
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+LOADING DATA:
+LOAD DATA LOCAL INPATH '/home/acadgild/Downloads/TitanicData.txt' INTO TABLE Titanic;
